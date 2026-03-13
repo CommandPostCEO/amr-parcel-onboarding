@@ -663,6 +663,7 @@
 <nav class="section-nav" aria-label="Section navigation">
   <a href="#overview">Overview</a>
   <a href="#phases">Training Phases</a>
+  <a href="#flight-map">Flight Paths</a>
   <a href="#tms-deep-dive">TMS Deep Dive</a>
   <a href="#carriers">Carrier Reference</a>
   <a href="#geography">Geography</a>
@@ -784,6 +785,225 @@
 
       </div>
     </div>
+
+    <!-- FLIGHT PATH MAP -->
+    <div id="flight-map" style="margin-bottom: 40px; border: 1px solid var(--apple-border); border-radius: 18px; overflow: hidden;">
+      <div style="padding: 20px 28px; border-bottom: 1px solid var(--apple-border); display: flex; align-items: center; gap: 16px;">
+        <div style="width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, #0071e3, #34a1ff); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+        </div>
+        <div>
+          <h2 style="font-size: 18px; font-weight: 700; letter-spacing: -0.3px; color: var(--apple-dark);">Inbound Flight Paths</h2>
+          <p style="font-size: 13px; color: var(--apple-mid); margin-top: 2px;">Week 1 — Gateway origins, en-route stops, and carrier hubs. Click any gateway to inspect its route.</p>
+        </div>
+      </div>
+
+      <!-- Self-contained map embed -->
+      <div style="position: relative; height: 540px; background: #07111f; font-family: 'DM Mono', monospace;">
+        <script src="https://cdn.plot.ly/plotly-3.3.1.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+
+        <!-- Map inner header -->
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(7,17,31,0.9); position:relative; z-index:10;">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:#f1f5f9; letter-spacing:0.04em;">AMR Inbound Parcel · Flight Paths</div>
+            <div style="font-size:9px; color:rgba(255,255,255,0.35); letter-spacing:0.1em; text-transform:uppercase; margin-top:2px;">Gateways → En-route stops → Carrier hubs · Click any gateway to inspect</div>
+          </div>
+          <div style="display:flex; gap:16px; align-items:center;">
+            <div style="display:flex; align-items:center; gap:6px; font-size:9px; color:rgba(255,255,255,0.35); letter-spacing:0.08em; text-transform:uppercase;">
+              <div style="width:7px;height:7px;border-radius:50%;background:#56d0ff;"></div>Gateway
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; font-size:9px; color:rgba(255,255,255,0.35); letter-spacing:0.08em; text-transform:uppercase;">
+              <div style="width:8px;height:8px;background:#f87171;transform:rotate(45deg);"></div>Hub
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; font-size:9px; color:rgba(255,255,255,0.35); letter-spacing:0.08em; text-transform:uppercase;">
+              <div style="width:18px;height:2px;background:#56d0ff;border-radius:1px;"></div>Flight
+            </div>
+            <div style="display:flex; align-items:center; gap:6px; font-size:9px; color:rgba(255,255,255,0.35); letter-spacing:0.08em; text-transform:uppercase;">
+              <div style="width:18px;height:0;border-top:2px dashed rgba(86,208,255,0.5);"></div>Ground/Ferry
+            </div>
+          </div>
+        </div>
+
+        <div id="fp-map" style="position:absolute; top:44px; left:0; right:0; bottom:40px;"></div>
+
+        <!-- Gateway detail panel -->
+        <div id="fp-gw-panel" style="position:absolute; top:54px; right:12px; width:220px; background:rgba(7,17,31,0.95); border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:14px 16px; display:none; z-index:20; backdrop-filter:blur(16px);">
+          <button onclick="fpClosePanel()" style="position:absolute;top:9px;right:11px;background:none;border:none;color:rgba(255,255,255,0.35);cursor:pointer;font-size:13px;line-height:1;">✕</button>
+          <div id="fp-gw-name" style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:6px;"></div>
+          <span id="fp-gw-dir" style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;padding:2px 7px;border-radius:3px;display:inline-block;background:rgba(86,208,255,0.1);color:#56d0ff;border:1px solid rgba(86,208,255,0.25);"></span>
+          <ul id="fp-gw-routes" style="list-style:none;margin-top:10px;"></ul>
+        </div>
+
+        <!-- Stats bar -->
+        <div style="position:absolute; bottom:0; left:0; right:0; display:flex; border-top:1px solid rgba(255,255,255,0.08); background:rgba(7,17,31,0.9);">
+          <div style="flex:1;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:baseline;gap:6px;">
+            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">8</span>
+            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Gateways</span>
+          </div>
+          <div style="flex:1;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:baseline;gap:6px;">
+            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">11</span>
+            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Routes</span>
+          </div>
+          <div style="flex:1;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:baseline;gap:6px;">
+            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">3</span>
+            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Carrier Hubs</span>
+          </div>
+          <div style="flex:1;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:baseline;gap:6px;">
+            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">4</span>
+            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Countries</span>
+          </div>
+          <div style="flex:1;padding:8px 16px;display:flex;align-items:baseline;gap:6px;">
+            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">ANC</span>
+            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Eastbound Stop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      const ROUTE_COL = '#56d0ff';
+      const HUB_COL   = '#f87171';
+      const GW_COL    = '#56d0ff';
+      const STOP_COL  = 'rgba(226,232,240,0.55)';
+
+      const AP = {
+        BKK:   { lat:13.69,   lon:100.7501, label:'BKK'   },
+        CGO:   { lat:34.5197, lon:113.8408, label:'CGO'   },
+        CTU:   { lat:30.5785, lon:103.9471, label:'CTU'   },
+        HKG:   { lat:22.308,  lon:113.9185, label:'HKG'   },
+        HAN:   { lat:21.2212, lon:105.8072, label:'HAN'   },
+        MAA:   { lat:12.9941, lon:80.1709,  label:'MAA'   },
+        PVG:   { lat:31.1443, lon:121.8083, label:'PVG'   },
+        BATAM: { lat:1.121,   lon:104.119,  label:'BATAM' },
+        DEL:   { lat:28.5562, lon:77.1,     label:'DEL'   },
+        CGN:   { lat:50.8659, lon:7.1427,   label:'CGN'   },
+        ICN:   { lat:37.4602, lon:126.4407, label:'ICN'   },
+        NRT:   { lat:35.7767, lon:140.3189, label:'NRT'   },
+        KIX:   { lat:34.4347, lon:135.2441, label:'KIX'   },
+        SZX:   { lat:22.6393, lon:113.8107, label:'SZX'   },
+        SIN:   { lat:1.3644,  lon:103.9915, label:'SIN'   },
+        BLR:   { lat:13.1986, lon:77.7066,  label:'BLR'   },
+        ANC_E: { lat:61.1743, lon:210.0015, label:'ANC'   },
+        SDF:   { lat:38.1744, lon:-85.736,  label:'SDF'   },
+        MEM:   { lat:35.0425, lon:-89.9767, label:'MEM'   },
+        CVG:   { lat:39.0488, lon:-84.6678, label:'CVG'   },
+      };
+
+      const FP_ROUTES = [
+        { id:'BKK-SDF',     gateway:'BKK',   hub:'SDF', dir:'west', stops:['BKK','DEL','CGN','SDF'],             ground:[['BKK','DEL']], label:'BKK → DEL → CGN → SDF' },
+        { id:'CGO-SDF',     gateway:'CGO',   hub:'SDF', dir:'east', stops:['CGO','ICN','ANC_E','SDF'],           ground:[],             label:'CGO → ICN → ANC → SDF' },
+        { id:'CTU-SDF',     gateway:'CTU',   hub:'SDF', dir:'east', stops:['CTU','CGO','ICN','ANC_E','SDF'],     ground:[['CTU','CGO']], label:'CTU → CGO (truck) → ICN → ANC → SDF' },
+        { id:'HKG-SDF',     gateway:'HKG',   hub:'SDF', dir:'east', stops:['HKG','ANC_E','SDF'],                ground:[],             label:'HKG → ANC → SDF' },
+        { id:'HAN-ICN-SDF', gateway:'HAN',   hub:'SDF', dir:'east', stops:['HAN','ICN','ANC_E','SDF'],           ground:[],             label:'HAN → ICN → ANC → SDF' },
+        { id:'HAN-SZX-SDF', gateway:'HAN',   hub:'SDF', dir:'east', stops:['HAN','SZX','ANC_E','SDF'],           ground:[],             label:'HAN → SZX → ANC → SDF' },
+        { id:'MAA-MEM',     gateway:'MAA',   hub:'MEM', dir:'west', stops:['MAA','BLR','CGN','MEM'],             ground:[['MAA','BLR']], label:'MAA → BLR (truck) → CGN → MEM' },
+        { id:'PVG-ICN-SDF', gateway:'PVG',   hub:'SDF', dir:'east', stops:['PVG','ICN','ANC_E','SDF'],           ground:[],             label:'PVG → ICN → ANC → SDF' },
+        { id:'PVG-NRT-SDF', gateway:'PVG',   hub:'SDF', dir:'east', stops:['PVG','NRT','ANC_E','SDF'],           ground:[],             label:'PVG → NRT → ANC → SDF' },
+        { id:'PVG-KIX-SDF', gateway:'PVG',   hub:'SDF', dir:'east', stops:['PVG','KIX','ANC_E','SDF'],           ground:[],             label:'PVG → KIX → ANC → SDF' },
+        { id:'BATAM-SDF',   gateway:'BATAM', hub:'SDF', dir:'east', stops:['BATAM','SIN','HKG','ICN','ANC_E','SDF'], ground:[['BATAM','SIN']], label:'BATAM → SIN (ferry) → HKG → ICN → ANC → SDF' },
+      ];
+
+      const FP_GW_INFO = {
+        BKK:   { name:'BKK — Bangkok, Thailand',  dir:'west' },
+        CGO:   { name:'CGO — Zhengzhou, China',   dir:'east' },
+        CTU:   { name:'CTU — Chengdu, China',     dir:'east' },
+        HKG:   { name:'HKG — Hong Kong',          dir:'east' },
+        HAN:   { name:'HAN — Hanoi, Vietnam',     dir:'east' },
+        MAA:   { name:'MAA — Chennai, India',     dir:'west' },
+        PVG:   { name:'PVG — Shanghai, China',    dir:'east' },
+        BATAM: { name:'BATAM — Batam, Indonesia', dir:'east' },
+      };
+
+      function fpBuildTraces() {
+        const traces = [];
+        const stopKeys = new Set(['DEL','CGN','ICN','NRT','KIX','SZX','SIN','BLR','ANC_E']);
+
+        FP_ROUTES.forEach(route => {
+          const groundSet = new Set(route.ground.map(([a,b]) => a+'-'+b));
+          for (let i = 0; i < route.stops.length - 1; i++) {
+            const fk = route.stops[i], tk = route.stops[i+1];
+            const from = AP[fk], to = AP[tk];
+            const isGround = groundSet.has(fk+'-'+tk);
+            traces.push({ type:'scattergeo', mode:'lines', lat:[from.lat,to.lat], lon:[from.lon,to.lon],
+              hoverinfo:'skip', showlegend:false,
+              line:{ color:ROUTE_COL, width:isGround?1.5:2.0, dash:isGround?'dot':'solid' },
+              opacity:isGround?0.45:0.72 });
+          }
+          traces.push({ type:'scattergeo', mode:'lines',
+            lat:route.stops.map(k=>AP[k].lat), lon:route.stops.map(k=>AP[k].lon),
+            hovertemplate:`<b>${route.label}</b><br>Hub: ${route.hub}<extra></extra>`,
+            showlegend:false, line:{ color:'rgba(0,0,0,0)', width:14 }, opacity:0.01 });
+        });
+
+        const usedStops = new Set();
+        FP_ROUTES.forEach(r => r.stops.forEach(s => { if (stopKeys.has(s)) usedStops.add(s); }));
+        const sL=[],sLn=[],sT=[];
+        usedStops.forEach(k => { sL.push(AP[k].lat); sLn.push(AP[k].lon); sT.push(AP[k].label); });
+        if (sL.length) traces.push({ type:'scattergeo', mode:'markers+text', lat:sL, lon:sLn, text:sT,
+          textfont:{ color:STOP_COL, size:9, family:'DM Mono' }, textposition:'top center',
+          hovertemplate:'%{text}<extra></extra>', showlegend:false,
+          marker:{ color:'rgba(86,208,255,0.08)', size:5, line:{ color:'rgba(86,208,255,0.4)', width:1 } } });
+
+        const gwKeys = [...new Set(FP_ROUTES.map(r=>r.gateway))];
+        traces.push({ type:'scattergeo', mode:'markers+text',
+          lat:gwKeys.map(k=>AP[k].lat), lon:gwKeys.map(k=>AP[k].lon), text:gwKeys.map(k=>AP[k].label),
+          textfont:{ color:'#f1f5f9', size:10, family:'DM Mono' }, textposition:'bottom center',
+          customdata:gwKeys,
+          hovertemplate:gwKeys.map(k=>`<b>${k}</b><br>${FP_GW_INFO[k]?.name||k}<extra></extra>`),
+          showlegend:false,
+          marker:{ color:GW_COL, size:10, line:{ color:'#07111f', width:1.5 }, symbol:'circle', opacity:0.9 } });
+
+        const hubKeys=['SDF','MEM','CVG'];
+        const hubH={ SDF:'SDF — Louisville, KY', MEM:'MEM — Memphis, TN', CVG:'CVG — Cincinnati, OH' };
+        traces.push({ type:'scattergeo', mode:'markers+text',
+          lat:hubKeys.map(k=>AP[k].lat), lon:hubKeys.map(k=>AP[k].lon), text:hubKeys,
+          textfont:{ color:'#f1f5f9', size:10.5, family:'DM Mono' }, textposition:'top center',
+          hovertemplate:hubKeys.map(k=>`<b>${hubH[k]}</b><extra></extra>`),
+          showlegend:false,
+          marker:{ color:HUB_COL, size:13, line:{ color:'#07111f', width:2 }, symbol:'diamond', opacity:0.95 } });
+
+        return traces;
+      }
+
+      const fpLayout = {
+        paper_bgcolor:'#07111f', plot_bgcolor:'#07111f',
+        margin:{ l:0, r:0, t:0, b:0 },
+        geo:{
+          projection:{ type:'equirectangular' },
+          lonaxis:{ range:[-170,220], showgrid:true, gridcolor:'rgba(255,255,255,0.04)', dtick:30 },
+          lataxis:{ range:[-5,75],   showgrid:true, gridcolor:'rgba(255,255,255,0.04)', dtick:20 },
+          showland:true, landcolor:'#0f2035', showocean:true, oceancolor:'#0a1628',
+          showlakes:true, lakecolor:'#0a1628', showcoastlines:true, coastlinecolor:'rgba(255,255,255,0.14)',
+          showcountries:true, countrycolor:'rgba(255,255,255,0.09)', showframe:false, bgcolor:'#0a1628',
+        },
+        font:{ family:'DM Mono', color:'#e2e8f0' },
+        hoverlabel:{ bgcolor:'rgba(7,17,31,0.95)', bordercolor:'rgba(86,208,255,0.3)', font:{ family:'DM Mono', size:12, color:'#f1f5f9' } },
+      };
+
+      function fpInit() {
+        if (typeof Plotly === 'undefined') { setTimeout(fpInit, 200); return; }
+        Plotly.newPlot('fp-map', fpBuildTraces(), fpLayout, { responsive:true, displayModeBar:false, scrollZoom:true });
+        document.getElementById('fp-map').on('plotly_click', function(data) {
+          const pt = data.points[0];
+          if (!pt.customdata) return;
+          const gw = pt.customdata;
+          const info = FP_GW_INFO[gw];
+          if (!info) return;
+          document.getElementById('fp-gw-name').textContent = info.name;
+          document.getElementById('fp-gw-dir').textContent = info.dir === 'east' ? 'Eastbound · via ANC' : 'Westbound · via CGN';
+          document.getElementById('fp-gw-routes').innerHTML =
+            FP_ROUTES.filter(r=>r.gateway===gw).map(r=>`<li style="font-size:11px;color:rgba(226,232,240,0.65);padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.08);line-height:1.5;">${r.label}</li>`).join('');
+          document.getElementById('fp-gw-panel').style.display = 'block';
+        });
+      }
+
+      window.fpClosePanel = function() { document.getElementById('fp-gw-panel').style.display = 'none'; };
+
+      fpInit();
+    })();
+    </script>
 
     <!-- PHASE 2 -->
     <div class="phase-block">
