@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inbound Parcel — Onboarding & Training Plan</title>
+  <style>
+    :root {
+      --apple-blue: #0071e3;
+      --apple-blue-dark: #0058b0;
+      --apple-gray: #f5f5f7;
+      --apple-dark: #1d1d1f;
+      --apple-mid: #6e6e73;
+      --apple-border: #d2d2d7;
+      --pill-green: #28a745;
+      --pill-blue: #0071e3;
+      --pill-purple: #7b5ea7;
+      --pill-orange: #e8770a;
+      --pill-red: #d32f2f;
+      --pill-teal: #00897b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 128px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+      background: #fff;
+      color: var(--apple-dark);
+      line-height: 1.6;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: saturate(180%) blur(22px);
+      -webkit-backdrop-filter: saturate(180%) blur(22px);
+      border-bottom: 1px solid rgba(210,210,215,0.72);
+      padding: 16px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 110;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.04);
+    }
+    header .logo {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      color: var(--apple-dark);
+    }
+    header .logo span { color: var(--apple-blue); }
+    header .badge {
+      font-size: 12px;
+      color: var(--apple-mid);
+      background: var(--apple-gray);
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 24px 64px;
+      text-align: center;
+      color: #fff;
+      background: #07111f;
+      background-image: url("hero-amr-network.webp");
+      background-size: cover;
+      background-position: center center;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at center, rgba(8,16,28,0.12) 0%, rgba(8,16,28,0.40) 36%, rgba(8,16,28,0.74) 100%),
+        linear-gradient(to bottom, rgba(5, 10, 18, 0.70) 0%, rgba(5, 10, 18, 0.46) 28%, rgba(5, 10, 18, 0.56) 60%, rgba(5, 10, 18, 0.74) 100%);
+      z-index: -3;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 120px;
+      background: linear-gradient(to bottom, rgba(245,245,247,0) 0%, rgba(245,245,247,0.92) 70%, rgba(245,245,247,1) 100%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .hero-routes {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.72;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .hero-routes svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    @keyframes routePulse {
+      0% { stroke-dashoffset: 420; opacity: 0; }
+      18% { opacity: 0.75; }
+      78% { opacity: 0.42; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+    @keyframes nodeGlow {
+      0%, 100% { transform: scale(1); opacity: 0.45; }
+      50% { transform: scale(1.18); opacity: 0.9; }
+    }
+    .route-line {
+      stroke-dasharray: 420;
+      stroke-dashoffset: 420;
+      animation: routePulse 9s ease-in-out infinite;
+    }
+    .route-line.delay-1 { animation-delay: 1.5s; }
+    .route-line.delay-2 { animation-delay: 3.2s; }
+    .route-line.delay-3 { animation-delay: 4.8s; }
+    .node-glow {
+      transform-origin: center;
+      animation: nodeGlow 4s ease-in-out infinite;
+    }
+    .node-glow.delay-1 { animation-delay: 1s; }
+    .node-glow.delay-2 { animation-delay: 2s; }
+    .node-glow.delay-3 { animation-delay: 3s; }
+    .hero-inner {
+      max-width: 980px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 0 16px;
+    }
+    .hero .eyebrow {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      opacity: 0.92;
+      margin: 0;
+    }
+    .hero h1 {
+      font-size: clamp(38px, 5.8vw, 64px);
+      line-height: 1.02;
+      font-weight: 700;
+      letter-spacing: -1.3px;
+      margin: 0;
+      text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+    }
+    .hero p {
+      font-size: 18px;
+      line-height: 1.45;
+      opacity: 0.92;
+      max-width: 760px;
+      margin: 0;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.28);
+    }
+    .hero-badge {
+      position: absolute;
+      top: 22px;
+      right: 28px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.82);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 6px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .hero-pill {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 7px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .mission-bar {
+      background: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+      border-bottom: 1px solid rgba(210,210,215,0.7);
+      padding: 24px 24px 28px;
+      text-align: center;
+    }
+    .mission-bar .mission-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--apple-blue);
+      margin-bottom: 8px;
+    }
+    .mission-bar p {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 16px;
+      color: #2c2c2e;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .section-nav {
+      position: sticky;
+      top: 69px;
+      z-index: 105;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 12px 20px;
+      margin: 0 auto 26px;
+      background: rgba(255,255,255,0.76);
+      border-bottom: 1px solid rgba(210,210,215,0.65);
+      backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+    .section-nav a {
+      color: #4a4a4f;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: background .18s ease, color .18s ease, transform .18s ease;
+    }
+    .section-nav a:hover {
+      background: rgba(0,113,227,0.10);
+      color: var(--apple-blue);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 14px 18px;
+      }
+      .hero {
+        min-height: 460px;
+        padding: 48px 18px 56px;
+      }
+      .hero-badge {
+        right: 16px;
+        top: 16px;
+      }
+      .hero p {
+        font-size: 16px;
+      }
+      .section-nav {
+        top: 61px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .hero-meta {
+        gap: 8px;
+      }
+      .hero-pill {
+        font-size: 11px;
+      }
+    }
+
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── SECTION TITLE ── */
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--apple-dark);
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      font-size: 15px;
+      color: var(--apple-mid);
+      margin-bottom: 28px;
+    }
+
+    /* ── OVERVIEW STATS ── */
+    .overview {
+      background: var(--apple-gray);
+      padding: 40px 0;
+      margin: 0 0 48px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+    }
+    .stat-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 22px 20px;
+      text-align: center;
+      border: 1px solid var(--apple-border);
+    }
+    .stat-card .num {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--apple-blue);
+      letter-spacing: -1px;
+    }
+    .stat-card .label {
+      font-size: 13px;
+      color: var(--apple-mid);
+      margin-top: 4px;
+    }
+
+    /* ── PHASES ── */
+    .phases { padding: 0 0 56px; }
+    .phase-block {
+      margin-bottom: 40px;
+      border: 1px solid var(--apple-border);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+    .phase-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 28px;
+      border-bottom: 1px solid var(--apple-border);
+    }
+    .phase-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .phase-header .meta h2 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .phase-header .meta p {
+      font-size: 13px;
+      color: var(--apple-mid);
+      margin-top: 2px;
+    }
+    .phase-body {
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    /* ── PILL / TOPIC CARD ── */
+    .pill-card {
+      background: var(--apple-gray);
+      border-radius: 12px;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: 1px solid transparent;
+    }
+    .pill-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+      border-color: var(--apple-border);
+    }
+    .pill-card .pill-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--apple-dark);
+    }
+    .pill-card .pill-desc {
+      font-size: 13px;
+      color: var(--apple-mid);
+      line-height: 1.5;
+    }
+    .pill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .pill-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 9px;
+      border-radius: 20px;
+      color: #fff;
+    }
+    .tag-green  { background: var(--pill-green); }
+    .tag-blue   { background: var(--pill-blue); }
+    .tag-purple { background: var(--pill-purple); }
+    .tag-orange { background: var(--pill-orange); }
+    .tag-red    { background: var(--pill-red); }
+    .tag-teal   { background: var(--pill-teal); }
+
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--apple-blue);
+      text-decoration: none;
+      margin-top: 2px;
+    }
+    .pill-link:hover { text-decoration: underline; }
+    .pill-link svg { flex-shrink: 0; }
+
+    /* ── CARRIER CARDS ── */
+    .carriers-section { padding: 0 0 56px; }
+    .carrier-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .carrier-card {
+      border: 1px solid var(--apple-border);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .carrier-card .carrier-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+    .carrier-card .carrier-founded {
+      font-size: 12px;
+      color: var(--apple-mid);
+      margin-top: -6px;
+    }
+    .carrier-card .carrier-hub {
+      display: inline-block;
+      background: var(--apple-gray);
+      border-radius: 8px;
+      padding: 5px 12px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .carrier-card .carrier-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      color: #fff;
+      display: inline-block;
+      width: fit-content;
+    }
+    .badge-primary   { background: #1a8c2e; }
+    .badge-reliable  { background: var(--apple-blue); }
+    .badge-regional  { background: var(--pill-teal); }
+    .carrier-notes { list-style: none; }
+    .carrier-notes li {
+      font-size: 13px;
+      color: var(--apple-mid);
+      padding: 4px 0;
+      border-bottom: 1px solid var(--apple-border);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .carrier-notes li:last-child { border-bottom: none; }
+    .carrier-notes li::before {
+      content: "•";
+      color: var(--apple-blue);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .country-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .country-tag {
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--apple-gray);
+      border: 1px solid var(--apple-border);
+      border-radius: 6px;
+      padding: 3px 8px;
+      color: var(--apple-dark);
+    }
+
+    /* ── CADENCE TABLE ── */
+    .cadence-section { padding: 0 0 56px; }
+    .cadence-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      border: 1px solid var(--apple-border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .cadence-table thead {
+      background: var(--apple-dark);
+      color: #fff;
+    }
+    .cadence-table thead th {
+      padding: 14px 18px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 13px;
+      letter-spacing: 0.02em;
+    }
+    .cadence-table tbody tr:nth-child(even) {
+      background: var(--apple-gray);
+    }
+    .cadence-table tbody td {
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--apple-border);
+      vertical-align: top;
+    }
+    .cadence-table tbody tr:last-child td { border-bottom: none; }
+    .cadence-table .freq-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .freq-daily   { background: var(--pill-green); }
+    .freq-weekly  { background: var(--pill-blue); }
+    .freq-adhoc   { background: var(--pill-orange); }
+    .freq-monthly { background: var(--pill-purple); }
+
+    /* ── RESOURCES ── */
+    .resources-section { padding: 0 0 56px; }
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .resource-card {
+      border: 1px solid var(--apple-border);
+      border-radius: 12px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: box-shadow 0.15s;
+    }
+    .resource-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    .resource-card .res-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .resource-card .res-desc {
+      font-size: 13px;
+      color: var(--apple-mid);
+      line-height: 1.5;
+    }
+    .resource-card a {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--apple-blue);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .resource-card a:hover { text-decoration: underline; }
+
+    /* ── GEOGRAPHY ── */
+    .geo-section { padding: 0 0 56px; }
+    .geo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 14px;
+    }
+    .geo-card {
+      border: 1px solid var(--apple-border);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+    }
+    .geo-card .geo-flag {
+      font-size: 36px;
+      margin-bottom: 8px;
+    }
+    .geo-card .geo-name {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .geo-card .geo-carriers {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+    }
+    .geo-card .geo-carriers span {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      color: #fff;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--apple-dark);
+      color: rgba(255,255,255,0.55);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+    }
+    footer strong { color: rgba(255,255,255,0.8); }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      height: 1px;
+      background: var(--apple-border);
+      margin: 0 0 48px;
+    }
+
+    /* ── PHASE COLORS ── */
+    .ph-1 { background: linear-gradient(135deg, #0071e3, #34a1ff); }
+    .ph-2 { background: linear-gradient(135deg, #28a745, #52d06e); }
+    .ph-3 { background: linear-gradient(135deg, #7b5ea7, #a67ed4); }
+    .ph-4 { background: linear-gradient(135deg, #e8770a, #f5a23c); }
+
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">AMR Operations · <span>Inbound Parcel</span></div>
+  <div class="badge">Onboarding & Training Plan</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-routes" aria-hidden="true">
+    <svg viewBox="0 0 1600 520" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="routeGlow" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+          <stop offset="45%" stop-color="rgba(255,214,130,0.95)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+        </linearGradient>
+      </defs>
+      <path class="route-line" d="M220 332 C460 216, 720 214, 1010 258 S1380 288, 1500 220" stroke="url(#routeGlow)" stroke-width="2.3" fill="none"/>
+      <path class="route-line delay-1" d="M160 370 C430 260, 730 238, 1025 285 S1360 305, 1510 246" stroke="url(#routeGlow)" stroke-width="1.7" fill="none"/>
+      <path class="route-line delay-2" d="M240 286 C515 176, 790 182, 1110 236 S1420 252, 1545 180" stroke="url(#routeGlow)" stroke-width="1.45" fill="none"/>
+      <path class="route-line delay-3" d="M300 408 C590 304, 860 292, 1160 318 S1442 324, 1565 280" stroke="url(#routeGlow)" stroke-width="1.2" fill="none"/>
+      <circle class="node-glow" cx="220" cy="332" r="5" fill="rgba(255,225,165,0.95)"/>
+      <circle class="node-glow delay-1" cx="1010" cy="258" r="5.5" fill="rgba(255,225,165,0.95)"/>
+      <circle class="node-glow delay-2" cx="1500" cy="220" r="4" fill="rgba(255,225,165,0.95)"/>
+      <circle class="node-glow delay-3" cx="300" cy="408" r="4.2" fill="rgba(255,225,165,0.95)"/>
+    </svg>
+  </div>
+  <div class="hero-badge">Onboarding &amp; Training</div>
+  <div class="hero-inner">
+    <div class="eyebrow"> AMR Logistics Operations</div>
+    <h1>Inbound Parcel Network</h1>
+    <p>A structured guide for learning the Inbound Parcel business — from carrier fundamentals to day-to-day operations, weekly cadence, and NPI execution.</p>
+    <div class="hero-meta">
+      <span class="hero-pill">4 Countries</span>
+      <span class="hero-pill">9 Gateways</span>
+      <span class="hero-pill">40 OEMs</span>
+      <span class="hero-pill">3 Carrier Partners</span>
+    </div>
+  </div>
+</div>
+
+<div class="mission-bar">
+  <div class="mission-label">The Parcel RSM Mission</div>
+  <p>The Inbound Parcel RSM ensures carrier execution from OEM handover through delivery by monitoring network health, aligning capacity with forecast, and resolving operational exceptions across the AMR region.</p>
+</div>
+
+<nav class="section-nav" aria-label="Section navigation">
+  <a href="#overview">Overview</a>
+  <a href="#phases">Training Phases</a>
+  <a href="#tms-deep-dive">TMS Deep Dive</a>
+  <a href="#carriers">Carrier Reference</a>
+  <a href="#geography">Geography</a>
+  <a href="#cadence">Cadence</a>
+  <a href="#resources">Resources</a>
+</nav>
+
+<!-- OVERVIEW STATS -->
+<div class="overview" id="overview">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="num">4</div>
+        <div class="label">Training Phases</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">4</div>
+        <div class="label">Countries</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">9</div>
+        <div class="label">Gateways</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">40</div>
+        <div class="label">OEMs</div>
+      </div>
+      <div class="stat-card">
+        <div class="num">3</div>
+        <div class="label">Carrier Partners</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- PHASE 1: FOUNDATIONS -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="phases" id="phases">
+    <div class="section-title">Training Phases</div>
+    <div class="section-subtitle">Progress through each phase sequentially. Links open relevant dashboards, tools, and references.</div>
+
+    <!-- PHASE 1 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number ph-1">1</div>
+        <div class="meta">
+          <h2>Foundations & Orientation</h2>
+          <p>Week 1 — Geographic overview, carrier landscape, and key tooling</p>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="pill-card">
+          <div class="pill-title">Geographic Overview</div>
+          <div class="pill-desc">4 countries (CN, VN, IN, TH), 9 gateways, 40 OEMs. Understand origin structures and carrier routing by region.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
+          <a class="pill-link" href="https://apple.box.com/s/s5n276ab2xl50q2c1s2rsdkmx00ulddh" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Keynote Geography
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Carrier Overview</div>
+          <div class="pill-desc">Understand the roles of UPS, FedEx, and DHL — their strengths, limitations, and country applicability.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
+          <a class="pill-link" href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Parcel Dashboard
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">AMR SmartPack</div>
+          <div class="pill-desc">The living day-to-day navigation guide for the Parcel RSM role. Your primary reference document.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Reference</span></div>
+          <a class="pill-link" href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            AMR Parcel SmartPack
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">OEM Overview</div>
+          <div class="pill-desc">Navigate the OEM landscape. Understand which OEMs use which carriers and any special equipment or origin constraints.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
+          <a class="pill-link" href="https://opsbi.corp.apple.com/greenhouse/" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Greenhouse
+          </a>
+          <a class="pill-link" href="https://accessmanager.apple.com/accessmanager/app/index.html?continue#!/main/request//907754/2701020748" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            OEM Capability Dashboard
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Carrier Hub Locations</div>
+          <div class="pill-desc">Memorise the key domestic and international hub airports: SDF (UPS), MEM (FedEx), CVG/LAX (DHL), plus ANC, ICN, NRT, DEL, SCL.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Parcel Dashboard Introduction</div>
+          <div class="pill-desc">Orientation to the IB Parcel Dashboard and QBR Dashboard — primary monitoring surfaces for the role.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Tool</span></div>
+          <a class="pill-link" href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Parcel Dashboard
+          </a>
+          <a class="pill-link" href="https://apple.box.com/s/wu71b9hyud1bb812ec9vexuluhcwx3pc" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Parcel QBR Dashboard
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number ph-2">2</div>
+        <div class="meta">
+          <h2>Daily Operations</h2>
+          <p>Week 2 — On The Ground, In Network, Handover, and daily reporting</p>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="pill-card">
+          <div class="pill-title">In Network Overview</div>
+          <div class="pill-desc">Volume that has uplifted from origin but not yet departed the carrier's domestic hub. Learn to interpret status and identify risk.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Daily Ops</span></div>
+          <a class="pill-link" href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Parcel In Network Report
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">On The Ground (OTG)</div>
+          <div class="pill-desc">Volume handed over from OEM to carrier but not yet uplifted. Learn At Risk vs Not At Risk, tonnage/ship/unit nuances, and carrier-specific OTG behaviors (UPS rolls WoW; FedEx/DHL typically do not).</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Daily Ops</span></div>
+          <a class="pill-link" href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            On The Ground Report
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Handover & Uplift</div>
+          <div class="pill-desc">Understand the relationship between Handover, Uplift, and OTG. Review the Handover report and Handover Tracking tool.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Daily Ops</span></div>
+          <a class="pill-link" href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Parcel Handover
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Daily IB Review</div>
+          <div class="pill-desc">Structure of the daily inbound review — what triggers action, how to prioritise Express vs Standard, and AOS by Account # (FIFO logic).</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Daily Ops</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Daily Handover Process</div>
+          <div class="pill-desc">How volume is formally handed from OEM to carrier. Understand the downstream impact on Uplift and OTG reporting.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Daily Ops</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Forecast vs Actuals</div>
+          <div class="pill-desc">Review the Forecast vs Actuals report and CPT Pivot. Understand how to read gaps and surface risk early.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Daily Ops</span></div>
+          <a class="pill-link" href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            LBR Flow Capacities
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">FedEx OTG Portal</div>
+          <div class="pill-desc">For FedEx shipments, pull OTG tracking numbers and review directly on the FedEx portal to verify status.</div>
+          <div class="pill-tags"><span class="pill-tag tag-teal">Carrier Tool</span></div>
+          <a class="pill-link" href="https://www.fedex.com/en-us/tracking.html" target="_blank">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            FedEx Tracking Portal
+          </a>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Dead Freight</div>
+          <div class="pill-desc">Understanding dead freight — what it is, when it occurs, and how to manage it with carriers.</div>
+          <div class="pill-tags"><span class="pill-tag tag-orange">Ad Hoc</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number ph-3">3</div>
+        <div class="meta">
+          <h2>Weekly Operations & Carrier Management</h2>
+          <p>Week 3 — Capacity requests, TMS settings, RRG, and carrier-specific workflows</p>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="pill-card">
+          <div class="pill-title">UPS Monday Capacity Request</div>
+          <div class="pill-desc">Weekly capacity request process for UPS — the Monday file. Walk through the setup, automation tools, and how to submit accurately.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Weekly</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">UPS Capacity Automation</div>
+          <div class="pill-desc">Overview of automation tooling for UPS capacity. RTL Parcel Projections and how to manage UPS IB/OB Parcel Synch calls.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Weekly</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Friday TMS Settings</div>
+          <div class="pill-desc">End-of-week TMS configuration — how to set up for the following week's routing and carrier assignments.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Weekly</span></div>
+        </div>
+
+        <div class="pill-card" style="border: 2px solid var(--apple-blue);">
+          <div class="pill-title">🔍 Deep Dive: TMS (Transportation Management System)</div>
+          <div class="pill-desc">A dedicated session covering the end-to-end TMS workflow for the IB Parcel RSM role. See full breakdown below.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Deep Dive</span><span class="pill-tag tag-purple">Weekly</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Regional Routing Guide (RRG)</div>
+          <div class="pill-desc">Navigate the RRG — Gateway Matrix, Parcel Account Numbers, Direct Ship POE Table, and Carrier Codes for EDI 856. Understand version control practices.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Weekly</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Parcel Account Numbers & ARK</div>
+          <div class="pill-desc">How parcel account numbers are structured and managed via the Account Request Keeper (ARK).</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Weekly</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Carrier Responsibilities: Handover to POD</div>
+          <div class="pill-desc">Full carrier accountability model from handover through to Proof of Delivery. Understand the RSM role at each stage.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Weekly</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Forecasting</div>
+          <div class="pill-desc">How parcel volume is forecast, and the RSM's role in validating and acting on forecast data.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Weekly</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">How Carriers Are Chosen</div>
+          <div class="pill-desc">The decision logic behind carrier selection — by country, package size, OEM constraints, and cost considerations.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PHASE 4 -->
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number ph-4">4</div>
+        <div class="meta">
+          <h2>Advanced Topics & Ad Hoc Operations</h2>
+          <p>Week 4+ — NPI, RRGs, new carrier onboarding, and escalation management</p>
+        </div>
+      </div>
+      <div class="phase-body">
+
+        <div class="pill-card">
+          <div class="pill-title">NPI Planning</div>
+          <div class="pill-desc">New Product Introduction planning for parcel — carrier selection, capacity pre-booking, and the RSM's role in supporting launch execution. UPS is sole NPI carrier.</div>
+          <div class="pill-tags"><span class="pill-tag tag-red">NPI</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">RRG Deep Dive</div>
+          <div class="pill-desc">Advanced walk-through of the Regional Routing Guide. Gateway Matrix, carrier code assignments, and edge cases.</div>
+          <div class="pill-tags"><span class="pill-tag tag-red">Advanced</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">New Carrier Onboarding (OEM Support)</div>
+          <div class="pill-desc">Who owns new carrier onboarding for OEMs and how the OB RSM supports IB requirements in that process.</div>
+          <div class="pill-tags"><span class="pill-tag tag-red">Advanced</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">RRG Ad Hoc Requests</div>
+          <div class="pill-desc">How to handle ad hoc routing requests — when they arise, who to engage, and how to document them.</div>
+          <div class="pill-tags"><span class="pill-tag tag-orange">Ad Hoc</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Open POD Reconciliation</div>
+          <div class="pill-desc">Verifying and actioning all open Proof of Delivery items. Escalation paths and carrier engagement protocols.</div>
+          <div class="pill-tags"><span class="pill-tag tag-orange">Ad Hoc</span></div>
+        </div>
+
+        <div class="pill-card">
+          <div class="pill-title">Team Structure & RSM Split</div>
+          <div class="pill-desc">New team structure — UPS requires 2 RSMs split by execution. Understand remit boundaries and collaboration model.</div>
+          <div class="pill-tags"><span class="pill-tag tag-red">Advanced</span></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- TMS DEEP DIVE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="phases" id="tms-deep-dive" style="padding-bottom: 0;">
+    <div class="section-title">🔍 Deep Dive: TMS (Transportation Management System)</div>
+    <div class="section-subtitle">A structured session to build full working proficiency with the TMS in the IB Parcel RSM context. Complete after Week 3 cadence sessions.</div>
+
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number" style="background: linear-gradient(135deg, #0071e3, #34a1ff);">A</div>
+        <div class="meta">
+          <h2>What Is TMS &amp; Why It Matters</h2>
+          <p>Orientation — purpose, scope, and the RSM's role in TMS</p>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="pill-card">
+          <div class="pill-title">TMS Overview</div>
+          <div class="pill-desc">The Transportation Management System controls routing rules, carrier assignments, and shipment planning for the week ahead. For the IB Parcel RSM, the most critical TMS touchpoint is the <strong>Friday Settings</strong> — configuring routing for the following week before the Monday capacity request cycle begins.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">TMS vs. Dashboard Relationship</div>
+          <div class="pill-desc">The TMS is the <em>instruction layer</em> — it tells carriers what to expect and sets routing rules. The Parcel Dashboard and OTG/In Network reports are the <em>visibility layer</em> — showing you whether execution matches the plan. Mismatches between the two are your signal to escalate or adjust.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">RSM TMS Responsibilities</div>
+          <div class="pill-desc">The RSM owns: (1) Friday weekly setup for the coming week; (2) Mid-week adjustments for exceptions or volume changes; (3) Coordination with OEMs and carriers to ensure TMS settings reflect actual handover plans; (4) Validation that EDI 856 carrier codes are correctly mapped in the RRG.</div>
+          <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number" style="background: linear-gradient(135deg, #28a745, #52d06e);">B</div>
+        <div class="meta">
+          <h2>Friday TMS Settings — Step by Step</h2>
+          <p>The weekly configuration workflow every RSM must master</p>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="pill-card">
+          <div class="pill-title">Step 1 — Review Forecast vs. Actuals</div>
+          <div class="pill-desc">Before touching TMS, pull the Forecast vs. Actuals report and CPT Pivot. Understand the volume delta between what was planned and what actually moved. This informs your routing decisions for the following week.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Friday Workflow</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">Step 2 — Check OTG &amp; In Network Status</div>
+          <div class="pill-desc">Before locking in next week's settings, confirm the current week's OTG volume disposition. Any volume rolling over from the current week (particularly UPS) affects your starting point for next week's settings.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Friday Workflow</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">Step 3 — Configure Carrier Assignments</div>
+          <div class="pill-desc">Set the carrier routing for each OEM/origin lane for the upcoming week. Key rules: (1) US — all 3 carriers possible; (2) CA — UPS primary, FedEx for AirTags; (3) MX — FedEx sole carrier, UPS does not service MX; (4) CL — DHL primary. Confirm no capacity constraints from Monday's UPS request that require rerouting.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Friday Workflow</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">Step 4 — Validate RRG Alignment</div>
+          <div class="pill-desc">Cross-reference TMS settings against the RRG Gateway Matrix and Parcel Account Numbers tabs. Ensure the carrier codes entered match the EDI 856 codes in the RRG. Mismatches here cause downstream visibility failures.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Friday Workflow</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">OEM-Specific Routing Confirmations</div>
+          <div class="pill-desc">Confirm TMS settings reflect actual OEM capabilities before locking in. Trust but verify — don't rely solely on TMS defaults.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Friday Workflow</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">Step 6 — Document &amp; Hand Off</div>
+          <div class="pill-desc">Log the TMS settings snapshot before leaving for the weekend. Ensure any exceptions or non-standard configurations are noted in the daily handover for Monday visibility. If a synch call or coverage is in place over the weekend, communicate open items.</div>
+          <div class="pill-tags"><span class="pill-tag tag-green">Friday Workflow</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number" style="background: linear-gradient(135deg, #7b5ea7, #a67ed4);">C</div>
+        <div class="meta">
+          <h2>TMS &amp; the UPS Monday Capacity Cycle</h2>
+          <p>How TMS settings feed into the weekly UPS capacity request</p>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="pill-card">
+          <div class="pill-title">The Friday → Monday Connection</div>
+          <div class="pill-desc">The TMS settings you lock in on Friday directly inform the UPS Monday capacity request. The capacity numbers you submit Monday morning are based on the routing volume you've configured in TMS for each origin/lane. If TMS is wrong, the capacity ask is wrong.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Cycle</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">UPS Automation Tool</div>
+          <div class="pill-desc">The UPS capacity automation tool reads from or feeds into TMS settings. Understand how these two systems interact — specifically, whether automation handles lane-level routing or whether manual overrides in TMS are required for exceptions.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Cycle</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">IB/OB Synch Impact</div>
+          <div class="pill-desc">The Monday UPS IB/OB Parcel Synch call may trigger TMS mid-week adjustments. If OB volumes shift significantly, the RSM may need to update TMS routing mid-week to rebalance capacity. Always check whether a synch call outcome requires a TMS update before the next Friday cycle.</div>
+          <div class="pill-tags"><span class="pill-tag tag-purple">Cycle</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number" style="background: linear-gradient(135deg, #e8770a, #f5a23c);">D</div>
+        <div class="meta">
+          <h2>TMS Exception Handling &amp; Ad Hoc Adjustments</h2>
+          <p>When and how to make mid-week changes</p>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="pill-card">
+          <div class="pill-title">When to Adjust TMS Mid-Week</div>
+          <div class="pill-desc">Mid-week TMS changes are triggered by: (1) carrier capacity constraints identified post-Monday; (2) OEM equipment or lane constraints (e.g., V158, CGO); (3) NPI surge requiring rerouting; (4) Dead freight events; (5) Carrier escalations (e.g., FedEx pushback on ad hoc requests).</div>
+          <div class="pill-tags"><span class="pill-tag tag-orange">Ad Hoc</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">FedEx-Specific TMS Caution</div>
+          <div class="pill-desc">FedEx does not have dynamic EDDs. If a TMS change requires FedEx to adjust expected delivery dates, expect pushback and slow response times. Build extra lead time into any FedEx TMS adjustments vs. UPS.</div>
+          <div class="pill-tags"><span class="pill-tag tag-orange">Ad Hoc</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">RRG Version Control During Changes</div>
+          <div class="pill-desc">Any ad hoc TMS change that introduces a new lane or carrier code must be verified against the current RRG version. If the RRG doesn't reflect the change, initiate an RRG amendment as part of the ad hoc process.</div>
+          <div class="pill-tags"><span class="pill-tag tag-orange">Ad Hoc</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="phase-block">
+      <div class="phase-header">
+        <div class="phase-number" style="background: linear-gradient(135deg, #0a0a0a, #2a2a3a);">E</div>
+        <div class="meta">
+          <h2>TMS Practice Exercise</h2>
+          <p>Hands-on validation before going independent</p>
+        </div>
+      </div>
+      <div class="phase-body">
+        <div class="pill-card">
+          <div class="pill-title">Shadow a Full Friday TMS Setup</div>
+          <div class="pill-desc">Before going independent: shadow a full Friday TMS session end-to-end, including the Forecast vs. Actuals review, OTG check, carrier assignment configuration, RRG validation, and handover note. Ask questions at each step.</div>
+          <div class="pill-tags"><span class="pill-tag tag-teal">Practice</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">Own a Friday TMS Setup (Supervised)</div>
+          <div class="pill-desc">Run the Friday TMS setup independently with a senior RSM available for review and sign-off before the settings are confirmed. Repeat until confident.</div>
+          <div class="pill-tags"><span class="pill-tag tag-teal">Practice</span></div>
+        </div>
+        <div class="pill-card">
+          <div class="pill-title">Walk Through a Historical Exception</div>
+          <div class="pill-desc">Review a past mid-week TMS adjustment — ideally one triggered by a carrier escalation or capacity crunch. Understand what changed, why, and how it was resolved. Common examples: FedEx MX pushback on ad hoc requests; CL DHL volume reroute to FedEx backup.</div>
+          <div class="pill-tags"><span class="pill-tag tag-teal">Practice</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+
+  <div class="carriers-section" id="carriers">
+    <div class="section-title">Carrier Reference</div>
+    <div class="section-subtitle">Key characteristics and usage guidelines for each carrier partner.</div>
+    <div class="carrier-grid">
+
+      <!-- UPS -->
+      <div class="carrier-card">
+        <div class="carrier-name">UPS</div>
+        <div class="carrier-founded">Founded 1907 · Louisville, KY</div>
+        <div class="carrier-hub">Hub: SDF — Louisville, KY</div>
+        <span class="carrier-badge badge-primary">Primary Carrier · Sole NPI</span>
+        <ul class="carrier-notes">
+          <li>Best OTP and overall processes</li>
+          <li>Superior NPI performance in US & CA</li>
+          <li>Most expensive for small packages; savings on large packages</li>
+          <li>Easiest to work with for ad hoc solutions</li>
+          <li>UPS brokerage used for DHL customs clearance</li>
+          <li>Largest carrier — requires 2 RSMs split by execution</li>
+        </ul>
+        <div class="country-tags">
+          <span class="country-tag">🇺🇸 US</span>
+          <span class="country-tag">🇨🇦 CA</span>
+          <span class="country-tag">🇲🇽 MX — not serviced</span>
+        </div>
+      </div>
+
+      <!-- FedEx -->
+      <div class="carrier-card">
+        <div class="carrier-name">FedEx</div>
+        <div class="carrier-founded">Founded 1971 · Memphis, TN</div>
+        <div class="carrier-hub">Hub: MEM — Memphis, TN</div>
+        <span class="carrier-badge badge-reliable">Reliable Carrier · Backup NPI</span>
+        <ul class="carrier-notes">
+          <li>Cheapest for small packages; costly over weekly allotments</li>
+          <li>Difficult to work with for ad hoc or out-of-plan requests</li>
+          <li>Best option for MX BAU and NPI</li>
+          <li>Toluca (MX) location well-managed — govt/military airport</li>
+          <li>Currently sole MX carrier — UPS does not service MX</li>
+          <li>Key contact: Ashleigh and her manager</li>
+          <li>Already onboarded to CL as secondary option</li>
+        </ul>
+        <div class="country-tags">
+          <span class="country-tag">🇺🇸 US</span>
+          <span class="country-tag">🇲🇽 MX (primary)</span>
+          <span class="country-tag">🇨🇱 CL (secondary)</span>
+        </div>
+      </div>
+
+      <!-- DHL -->
+      <div class="carrier-card">
+        <div class="carrier-name">DHL</div>
+        <div class="carrier-founded">Sub of Deutsche Post · Founded 1969</div>
+        <div class="carrier-hub">Hub: CVG (Cincinnati) · LAX</div>
+        <span class="carrier-badge badge-regional">Regional Carrier · Sole CL</span>
+        <ul class="carrier-notes">
+          <li>Cheapest across almost all locations and package sizes</li>
+          <li>Worst OTP and support performance overall</li>
+          <li>Customs clearance issues (via UPS brokerage)</li>
+          <li>Difficult to resolve issues when they arise</li>
+          <li>Currently only Chile (CL) provider onboarded</li>
+        </ul>
+        <div class="country-tags">
+          <span class="country-tag">🇨🇱 CL (sole carrier)</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- GEOGRAPHY -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="geo-section" id="geography">
+    <div class="section-title">Carrier Usage by Country</div>
+    <div class="section-subtitle">Understand which carriers operate where and any origin/OEM constraints.</div>
+    <div class="geo-grid">
+
+      <div class="geo-card">
+        <div class="geo-flag">🇺🇸</div>
+        <div class="geo-name">United States</div>
+        <div class="geo-carriers">
+          <span style="background:#1a8c2e">UPS</span>
+          <span style="background:#0071e3">FedEx</span>
+          <span style="background:#e8770a">DHL</span>
+        </div>
+        <p style="font-size:12px;color:var(--apple-mid);margin-top:10px;">All 3 carriers active</p>
+      </div>
+
+      <div class="geo-card">
+        <div class="geo-flag">🇨🇦</div>
+        <div class="geo-name">Canada</div>
+        <div class="geo-carriers">
+          <span style="background:#1a8c2e">UPS</span>
+        </div>
+        <p style="font-size:12px;color:var(--apple-mid);margin-top:10px;">UPS only (except AirTags — FedEx small weight cheaper). DHL not set up.</p>
+      </div>
+
+      <div class="geo-card">
+        <div class="geo-flag">🇲🇽</div>
+        <div class="geo-name">Mexico</div>
+        <div class="geo-carriers">
+          <span style="background:#0071e3">FedEx</span>
+        </div>
+        <p style="font-size:12px;color:var(--apple-mid);margin-top:10px;">FedEx is the sole carrier. UPS does not service MX.</p>
+      </div>
+
+      <div class="geo-card">
+        <div class="geo-flag">🇨🇱</div>
+        <div class="geo-name">Chile</div>
+        <div class="geo-carriers">
+          <span style="background:#e8770a">DHL</span>
+          <span style="background:#0071e3">FedEx</span>
+        </div>
+        <p style="font-size:12px;color:var(--apple-mid);margin-top:10px;">DHL sole primary carrier. FedEx onboarded as secondary option.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- CADENCE TABLE -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="cadence-section" id="cadence">
+    <div class="section-title">Operational Cadence</div>
+    <div class="section-subtitle">Key recurring tasks and when they happen.</div>
+    <table class="cadence-table">
+      <thead>
+        <tr>
+          <th>Task</th>
+          <th>Frequency</th>
+          <th>Day / Timing</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>IB Parcel Daily Review (On The Ground + In Network)</td>
+          <td><span class="freq-badge freq-daily">Daily</span></td>
+          <td>Every day</td>
+          <td>Review OTG, In Network, and Handover. Identify At Risk volume.</td>
+        </tr>
+        <tr>
+          <td>Daily Handover</td>
+          <td><span class="freq-badge freq-daily">Daily</span></td>
+          <td>Every day</td>
+          <td>Volume handover from OEM to carrier. Confirm uplift plans with UPS APAC team.</td>
+        </tr>
+        <tr>
+          <td>Open POD Reconciliation</td>
+          <td><span class="freq-badge freq-daily">Daily</span></td>
+          <td>Every day</td>
+          <td>Verify and action all open PODs. Alert stakeholders of discrepancies.</td>
+        </tr>
+        <tr>
+          <td>UPS Capacity Request (Monday File)</td>
+          <td><span class="freq-badge freq-weekly">Weekly</span></td>
+          <td>Monday</td>
+          <td>Submit capacity request for the coming week. Use automation tooling where available.</td>
+        </tr>
+        <tr>
+          <td>UPS IB/OB Parcel Synch Call</td>
+          <td><span class="freq-badge freq-weekly">Weekly</span></td>
+          <td>Monday</td>
+          <td>Align IB and OB teams with UPS on volume and capacity.</td>
+        </tr>
+        <tr>
+          <td>Friday TMS Settings</td>
+          <td><span class="freq-badge freq-weekly">Weekly</span></td>
+          <td>Friday</td>
+          <td>Configure TMS for the following week's routing and carrier assignments.</td>
+        </tr>
+        <tr>
+          <td>Forecast vs Actuals Review</td>
+          <td><span class="freq-badge freq-weekly">Weekly</span></td>
+          <td>Weekly</td>
+          <td>Review forecast accuracy. Surface gaps and escalate risk.</td>
+        </tr>
+        <tr>
+          <td>RRG Ad Hoc Requests</td>
+          <td><span class="freq-badge freq-adhoc">Ad Hoc</span></td>
+          <td>As needed</td>
+          <td>Handle out-of-plan routing requests. Engage carriers and document decisions.</td>
+        </tr>
+        <tr>
+          <td>NPI Planning</td>
+          <td><span class="freq-badge freq-adhoc">Ad Hoc</span></td>
+          <td>Per launch cycle</td>
+          <td>Pre-book capacity, manage uplift, and support launch execution with UPS.</td>
+        </tr>
+        <tr>
+          <td>Dead Freight Discussion</td>
+          <td><span class="freq-badge freq-adhoc">Ad Hoc</span></td>
+          <td>As needed</td>
+          <td>Review dead freight occurrences and resolution with carriers.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ─────────────────────────────────────────── -->
+  <!-- RESOURCES -->
+  <!-- ─────────────────────────────────────────── -->
+  <div class="resources-section" id="resources">
+    <div class="section-title">Key Resources & Tools</div>
+    <div class="section-subtitle">Bookmark these. You'll use them every day.</div>
+    <div class="resources-grid">
+
+      <div class="resource-card">
+        <div class="res-title">Parcel Dashboard</div>
+        <div class="res-desc">Primary day-to-day monitoring dashboard for IB Parcel operations.</div>
+        <a href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open Parcel Dashboard
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <div class="res-title">Parcel QBR Dashboard</div>
+        <div class="res-desc">Quarterly Business Review dashboard for parcel performance and carrier metrics.</div>
+        <a href="https://apple.box.com/s/wu71b9hyud1bb812ec9vexuluhcwx3pc" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 466EC/9-mvm6jnpwrwzdjk90ao2h7vd2y96"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open QBR Dashboard
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <div class="res-title">AMR Parcel SmartPack</div>
+        <div class="res-desc">Living reference document for the Parcel RSM role. Updated 8/26/25.</div>
+        <a href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open SmartPack
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <div class="res-title">Greenhouse</div>
+        <div class="res-desc">OEM capability and origin reference. Use to understand OEM-carrier relationships.</div>
+        <a href="https://opsbi.corp.apple.com/greenhouse/" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open Greenhouse
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <div class="res-title">OEM Capability Dashboard</div>
+        <div class="res-desc">Access manager portal for OEM capability data.</div>
+        <a href="https://accessmanager.apple.com/accessmanager/app/index.html?continue#!/main/request//907754/2701020748" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open Dashboard
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <div class="res-title">OEM Reference (Box)</div>
+        <div class="res-desc">Box document containing the most used OEMs list and related reference data.</div>
+        <a href="https://apple.box.com/s/s5n276ab2xl50q2c1s2rsdkmx00ulddh" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open OEM Reference
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <div class="res-title">FedEx Tracking Portal</div>
+        <div class="res-desc">For FedEx OTG verification — pull tracking numbers from the OTG report and validate here.</div>
+        <a href="https://www.fedex.com/en-us/tracking.html" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          FedEx Tracking
+        </a>
+      </div>
+
+      <div class="resource-card">
+        <div class="res-title">Infodoc Dashboard</div>
+        <div class="res-desc">Additional operational reference used alongside the Parcel Dashboard.</div>
+        <a href="https://apple.box.com/s/qtdy3mvm6jnpwrwzdjk90ao2h7vd2y96" target="_blank">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Infodoc Dashboard
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer>
+  <strong>AMR Operations — Inbound Parcel</strong><br/>
+  Onboarding & Training Plan · Based on SmartPack updated 8/26/25 · Internal use only
+</footer>
+
+</body>
+</html>
