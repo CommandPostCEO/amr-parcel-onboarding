@@ -22,6 +22,11 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 128px;
+    }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
       background: #fff;
@@ -31,16 +36,18 @@
 
     /* ── HEADER ── */
     header {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid var(--apple-border);
-      padding: 18px 40px;
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: saturate(180%) blur(22px);
+      -webkit-backdrop-filter: saturate(180%) blur(22px);
+      border-bottom: 1px solid rgba(210,210,215,0.72);
+      padding: 16px 40px;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 110;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.04);
     }
     header .logo {
       font-size: 17px;
@@ -60,11 +67,11 @@
     /* ── HERO ── */
     .hero {
       position: relative;
-      min-height: 440px;
+      min-height: 520px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 48px 24px;
+      padding: 56px 24px 64px;
       text-align: center;
       color: #fff;
       background: #07111f;
@@ -78,18 +85,58 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(4, 10, 20, 0.38) 0%, rgba(4, 10, 20, 0.52) 50%, rgba(4, 10, 20, 0.68) 100%);
-      z-index: -2;
+      background:
+        radial-gradient(circle at center, rgba(8,16,28,0.12) 0%, rgba(8,16,28,0.40) 36%, rgba(8,16,28,0.74) 100%),
+        linear-gradient(to bottom, rgba(5, 10, 18, 0.70) 0%, rgba(5, 10, 18, 0.46) 28%, rgba(5, 10, 18, 0.56) 60%, rgba(5, 10, 18, 0.74) 100%);
+      z-index: -3;
     }
     .hero::after {
       content: "";
       position: absolute;
       inset: auto 0 0 0;
-      height: 96px;
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.92) 100%);
+      height: 120px;
+      background: linear-gradient(to bottom, rgba(245,245,247,0) 0%, rgba(245,245,247,0.92) 70%, rgba(245,245,247,1) 100%);
       z-index: -1;
       pointer-events: none;
     }
+    .hero-routes {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      opacity: 0.72;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+    .hero-routes svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    @keyframes routePulse {
+      0% { stroke-dashoffset: 420; opacity: 0; }
+      18% { opacity: 0.75; }
+      78% { opacity: 0.42; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+    @keyframes nodeGlow {
+      0%, 100% { transform: scale(1); opacity: 0.45; }
+      50% { transform: scale(1.18); opacity: 0.9; }
+    }
+    .route-line {
+      stroke-dasharray: 420;
+      stroke-dashoffset: 420;
+      animation: routePulse 9s ease-in-out infinite;
+    }
+    .route-line.delay-1 { animation-delay: 1.5s; }
+    .route-line.delay-2 { animation-delay: 3.2s; }
+    .route-line.delay-3 { animation-delay: 4.8s; }
+    .node-glow {
+      transform-origin: center;
+      animation: nodeGlow 4s ease-in-out infinite;
+    }
+    .node-glow.delay-1 { animation-delay: 1s; }
+    .node-glow.delay-2 { animation-delay: 2s; }
+    .node-glow.delay-3 { animation-delay: 3s; }
     .hero-inner {
       max-width: 980px;
       display: flex;
@@ -137,6 +184,112 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .hero-pill {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: rgba(255,255,255,0.92);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      padding: 7px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+    }
+
+    .mission-bar {
+      background: linear-gradient(180deg, #f5f5f7 0%, #ffffff 100%);
+      border-bottom: 1px solid rgba(210,210,215,0.7);
+      padding: 24px 24px 28px;
+      text-align: center;
+    }
+    .mission-bar .mission-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--apple-blue);
+      margin-bottom: 8px;
+    }
+    .mission-bar p {
+      max-width: 900px;
+      margin: 0 auto;
+      font-size: 16px;
+      color: #2c2c2e;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .section-nav {
+      position: sticky;
+      top: 69px;
+      z-index: 105;
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 12px 20px;
+      margin: 0 auto 26px;
+      background: rgba(255,255,255,0.76);
+      border-bottom: 1px solid rgba(210,210,215,0.65);
+      backdrop-filter: saturate(180%) blur(18px);
+      -webkit-backdrop-filter: saturate(180%) blur(18px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    }
+    .section-nav a {
+      color: #4a4a4f;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: background .18s ease, color .18s ease, transform .18s ease;
+    }
+    .section-nav a:hover {
+      background: rgba(0,113,227,0.10);
+      color: var(--apple-blue);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 720px) {
+      header {
+        padding: 14px 18px;
+      }
+      .hero {
+        min-height: 460px;
+        padding: 48px 18px 56px;
+      }
+      .hero-badge {
+        right: 16px;
+        top: 16px;
+      }
+      .hero p {
+        font-size: 16px;
+      }
+      .section-nav {
+        top: 61px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .hero-meta {
+        gap: 8px;
+      }
+      .hero-pill {
+        font-size: 11px;
+      }
+    }
+
 
     /* ── CONTAINER ── */
     .container {
@@ -523,16 +676,56 @@
 
 <!-- HERO -->
 <div class="hero">
+  <div class="hero-routes" aria-hidden="true">
+    <svg viewBox="0 0 1600 520" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="routeGlow" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
+          <stop offset="45%" stop-color="rgba(255,214,130,0.95)"/>
+          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+        </linearGradient>
+      </defs>
+      <path class="route-line" d="M220 332 C460 216, 720 214, 1010 258 S1380 288, 1500 220" stroke="url(#routeGlow)" stroke-width="2.3" fill="none"/>
+      <path class="route-line delay-1" d="M160 370 C430 260, 730 238, 1025 285 S1360 305, 1510 246" stroke="url(#routeGlow)" stroke-width="1.7" fill="none"/>
+      <path class="route-line delay-2" d="M240 286 C515 176, 790 182, 1110 236 S1420 252, 1545 180" stroke="url(#routeGlow)" stroke-width="1.45" fill="none"/>
+      <path class="route-line delay-3" d="M300 408 C590 304, 860 292, 1160 318 S1442 324, 1565 280" stroke="url(#routeGlow)" stroke-width="1.2" fill="none"/>
+      <circle class="node-glow" cx="220" cy="332" r="5" fill="rgba(255,225,165,0.95)"/>
+      <circle class="node-glow delay-1" cx="1010" cy="258" r="5.5" fill="rgba(255,225,165,0.95)"/>
+      <circle class="node-glow delay-2" cx="1500" cy="220" r="4" fill="rgba(255,225,165,0.95)"/>
+      <circle class="node-glow delay-3" cx="300" cy="408" r="4.2" fill="rgba(255,225,165,0.95)"/>
+    </svg>
+  </div>
   <div class="hero-badge">Onboarding &amp; Training</div>
   <div class="hero-inner">
     <div class="eyebrow"> AMR Logistics Operations</div>
     <h1>Inbound Parcel Network</h1>
     <p>A structured guide for learning the Inbound Parcel business — from carrier fundamentals to day-to-day operations, weekly cadence, and NPI execution.</p>
+    <div class="hero-meta">
+      <span class="hero-pill">4 Countries</span>
+      <span class="hero-pill">9 Gateways</span>
+      <span class="hero-pill">40 OEMs</span>
+      <span class="hero-pill">3 Carrier Partners</span>
+    </div>
   </div>
 </div>
 
+<div class="mission-bar">
+  <div class="mission-label">The Parcel RSM Mission</div>
+  <p>The Inbound Parcel RSM ensures carrier execution from OEM handover through delivery by monitoring network health, aligning capacity with forecast, and resolving operational exceptions across the AMR region.</p>
+</div>
+
+<nav class="section-nav" aria-label="Section navigation">
+  <a href="#overview">Overview</a>
+  <a href="#phases">Training Phases</a>
+  <a href="#tms-deep-dive">TMS Deep Dive</a>
+  <a href="#carriers">Carrier Reference</a>
+  <a href="#geography">Geography</a>
+  <a href="#cadence">Cadence</a>
+  <a href="#resources">Resources</a>
+</nav>
+
 <!-- OVERVIEW STATS -->
-<div class="overview">
+<div class="overview" id="overview">
   <div class="container">
     <div class="stats-grid">
       <div class="stat-card">
@@ -564,7 +757,7 @@
   <!-- ─────────────────────────────────────────── -->
   <!-- PHASE 1: FOUNDATIONS -->
   <!-- ─────────────────────────────────────────── -->
-  <div class="phases">
+  <div class="phases" id="phases">
     <div class="section-title">Training Phases</div>
     <div class="section-subtitle">Progress through each phase sequentially. Links open relevant dashboards, tools, and references.</div>
 
@@ -852,7 +1045,7 @@
   <!-- ─────────────────────────────────────────── -->
   <!-- TMS DEEP DIVE -->
   <!-- ─────────────────────────────────────────── -->
-  <div class="phases" style="padding-bottom: 0;">
+  <div class="phases" id="tms-deep-dive" style="padding-bottom: 0;">
     <div class="section-title">🔍 Deep Dive: TMS (Transportation Management System)</div>
     <div class="section-subtitle">A structured session to build full working proficiency with the TMS in the IB Parcel RSM context. Complete after Week 3 cadence sessions.</div>
 
@@ -1010,7 +1203,7 @@
   <div class="section-divider"></div>
 
 
-  <div class="carriers-section">
+  <div class="carriers-section" id="carriers">
     <div class="section-title">Carrier Reference</div>
     <div class="section-subtitle">Key characteristics and usage guidelines for each carrier partner.</div>
     <div class="carrier-grid">
@@ -1084,7 +1277,7 @@
   <!-- ─────────────────────────────────────────── -->
   <!-- GEOGRAPHY -->
   <!-- ─────────────────────────────────────────── -->
-  <div class="geo-section">
+  <div class="geo-section" id="geography">
     <div class="section-title">Carrier Usage by Country</div>
     <div class="section-subtitle">Understand which carriers operate where and any origin/OEM constraints.</div>
     <div class="geo-grid">
@@ -1136,7 +1329,7 @@
   <!-- ─────────────────────────────────────────── -->
   <!-- CADENCE TABLE -->
   <!-- ─────────────────────────────────────────── -->
-  <div class="cadence-section">
+  <div class="cadence-section" id="cadence">
     <div class="section-title">Operational Cadence</div>
     <div class="section-subtitle">Key recurring tasks and when they happen.</div>
     <table class="cadence-table">
@@ -1218,7 +1411,7 @@
   <!-- ─────────────────────────────────────────── -->
   <!-- RESOURCES -->
   <!-- ─────────────────────────────────────────── -->
-  <div class="resources-section">
+  <div class="resources-section" id="resources">
     <div class="section-title">Key Resources & Tools</div>
     <div class="section-subtitle">Bookmark these. You'll use them every day.</div>
     <div class="resources-grid">
