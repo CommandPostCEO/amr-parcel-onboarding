@@ -799,12 +799,12 @@
       </div>
 
       <!-- Self-contained map embed -->
-      <div style="position: relative; height: 460px; background: #07111f; font-family: 'DM Mono', monospace;">
+      <div style="position: relative; height: 460px; background: #0a1628; font-family: 'DM Mono', monospace;">
         <script src="https://cdn.plot.ly/plotly-3.3.1.min.js"></script>
         <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
 
         <!-- Map inner header -->
-        <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(7,17,31,0.9); position:relative; z-index:10;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 20px; border-bottom:1px solid rgba(255,255,255,0.08); background:rgba(10,22,40,0.97); position:relative; z-index:10;">
           <div>
             <div style="font-family:'Syne',sans-serif; font-size:13px; font-weight:700; color:#f1f5f9; letter-spacing:0.04em;">AMR Inbound Parcel · Flight Paths</div>
             <div style="font-size:9px; color:rgba(255,255,255,0.35); letter-spacing:0.1em; text-transform:uppercase; margin-top:2px;">Gateways → En-route stops → Carrier hubs · Click any gateway to inspect</div>
@@ -828,7 +828,7 @@
         <div id="fp-map" style="position:absolute; top:44px; left:0; right:0; bottom:0;"></div>
 
         <!-- Gateway detail panel -->
-        <div id="fp-gw-panel" style="position:absolute; top:54px; right:12px; width:220px; background:rgba(7,17,31,0.95); border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:14px 16px; display:none; z-index:20; backdrop-filter:blur(16px);">
+        <div id="fp-gw-panel" style="position:absolute; top:54px; right:12px; width:220px; background:rgba(10,22,40,0.97); border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:14px 16px; display:none; z-index:20; backdrop-filter:blur(16px);">
           <button onclick="fpClosePanel()" style="position:absolute;top:9px;right:11px;background:none;border:none;color:rgba(255,255,255,0.35);cursor:pointer;font-size:13px;line-height:1;">✕</button>
           <div id="fp-gw-name" style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#f1f5f9;margin-bottom:6px;"></div>
           <span id="fp-gw-dir" style="font-size:9px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px;padding:2px 7px;border-radius:3px;display:inline-block;background:rgba(86,208,255,0.1);color:#56d0ff;border:1px solid rgba(86,208,255,0.25);"></span>
@@ -945,8 +945,8 @@
       }
 
       const fpLayout = {
-        paper_bgcolor:'#07111f', plot_bgcolor:'#07111f',
-        margin:{ l:0, r:0, t:0, b:0 },
+        paper_bgcolor:'#0a1628', plot_bgcolor:'#0a1628',
+        margin:{ l:0, r:0, t:0, b:0, pad:0 },
         geo:{
           projection:{ type:'equirectangular' },
           lonaxis:{ range:[-170,220], showgrid:true, gridcolor:'rgba(255,255,255,0.04)', dtick:30 },
@@ -954,6 +954,7 @@
           showland:true, landcolor:'#0f2035', showocean:true, oceancolor:'#0a1628',
           showlakes:true, lakecolor:'#0a1628', showcoastlines:true, coastlinecolor:'rgba(255,255,255,0.14)',
           showcountries:true, countrycolor:'rgba(255,255,255,0.09)', showframe:false, bgcolor:'#0a1628',
+          domain:{ x:[0,1], y:[0,1] },
         },
         font:{ family:'DM Mono', color:'#e2e8f0' },
         hoverlabel:{ bgcolor:'rgba(7,17,31,0.95)', bordercolor:'rgba(86,208,255,0.3)', font:{ family:'DM Mono', size:12, color:'#f1f5f9' } },
