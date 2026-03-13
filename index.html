@@ -100,44 +100,69 @@
       z-index: -1;
       pointer-events: none;
     }
+    /* ── HERO ROUTES ── */
     .hero-routes {
       position: absolute;
       inset: 0;
-      z-index: -2;
-      opacity: 0.72;
-      mix-blend-mode: screen;
-      pointer-events: none;
-    }
-    .hero-routes svg {
       width: 100%;
       height: 100%;
-      display: block;
+      z-index: 2;
+      pointer-events: none;
     }
-    @keyframes routePulse {
-      0% { stroke-dashoffset: 420; opacity: 0; }
-      18% { opacity: 0.75; }
-      78% { opacity: 0.42; }
-      100% { stroke-dashoffset: 0; opacity: 0; }
+
+    .arc {
+      fill: none;
+      stroke-linecap: round;
+      stroke-dasharray: 1800;
+      stroke-dashoffset: 1800;
+      opacity: 0;
     }
-    @keyframes nodeGlow {
-      0%, 100% { transform: scale(1); opacity: 0.45; }
-      50% { transform: scale(1.18); opacity: 0.9; }
+    .arc-sha { stroke: rgba(255,255,255,0.32); stroke-width: 1.6; }
+    .arc-han { stroke: rgba(255,255,255,0.26); stroke-width: 1.4; }
+    .arc-blr { stroke: rgba(180,210,255,0.30); stroke-width: 1.4; }
+
+    @keyframes arcSweep {
+      0%   { stroke-dashoffset: 1800; opacity: 0; }
+      8%   { opacity: 1; }
+      65%  { opacity: 0.55; }
+      90%  { opacity: 0.10; }
+      100% { stroke-dashoffset: 0;    opacity: 0; }
     }
-    .route-line {
-      stroke-dasharray: 420;
-      stroke-dashoffset: 420;
-      animation: routePulse 9s ease-in-out infinite;
+    .arc.s0 { animation: arcSweep 10s ease-in-out infinite 0.0s; }
+    .arc.s1 { animation: arcSweep 10s ease-in-out infinite 2.0s; }
+    .arc.s2 { animation: arcSweep 10s ease-in-out infinite 3.6s; }
+    .arc.s3 { animation: arcSweep 10s ease-in-out infinite 5.2s; }
+    .arc.s4 { animation: arcSweep 10s ease-in-out infinite 6.8s; }
+    .arc.s5 { animation: arcSweep 10s ease-in-out infinite 1.0s; }
+
+    .gnode {
+      fill: rgba(255,255,255,0.80);
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.50));
     }
-    .route-line.delay-1 { animation-delay: 1.5s; }
-    .route-line.delay-2 { animation-delay: 3.2s; }
-    .route-line.delay-3 { animation-delay: 4.8s; }
-    .node-glow {
-      transform-origin: center;
-      animation: nodeGlow 4s ease-in-out infinite;
+    @keyframes nodePulse {
+      0%, 100% { opacity: 0.40; r: 4;   }
+      50%      { opacity: 0.95; r: 6.5; }
     }
-    .node-glow.delay-1 { animation-delay: 1s; }
-    .node-glow.delay-2 { animation-delay: 2s; }
-    .node-glow.delay-3 { animation-delay: 3s; }
+    .gnode.p0 { animation: nodePulse 4s ease-in-out infinite 0.0s; }
+    .gnode.p1 { animation: nodePulse 4s ease-in-out infinite 1.3s; }
+    .gnode.p2 { animation: nodePulse 4s ease-in-out infinite 2.6s; }
+    .gnode.p3 { animation: nodePulse 4s ease-in-out infinite 0.8s; }
+    .gnode.p4 { animation: nodePulse 4s ease-in-out infinite 1.9s; }
+
+    /* ── HERO TEXT FADE-UP ── */
+    .hero-inner > * {
+      opacity: 0;
+      transform: translateY(12px);
+      animation: heroFadeUp 0.65s ease forwards;
+    }
+    .hero-inner .eyebrow   { animation-delay: 0.10s; }
+    .hero-inner h1         { animation-delay: 0.22s; }
+    .hero-inner p          { animation-delay: 0.34s; }
+    .hero-inner .hero-meta { animation-delay: 0.46s; }
+
+    @keyframes heroFadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
     .hero-inner {
       max-width: 980px;
       display: flex;
@@ -240,11 +265,11 @@
       flex-wrap: wrap;
       padding: 12px 20px;
       margin: 0 auto 26px;
-      background: rgba(255,255,255,0.76);
-      border-bottom: 1px solid rgba(210,210,215,0.65);
-      backdrop-filter: saturate(180%) blur(22px);
-      -webkit-backdrop-filter: saturate(180%) blur(22px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+      background: rgba(255,255,255,0.72);
+      border-bottom: 1px solid rgba(210,210,215,0.50);
+      backdrop-filter: saturate(200%) blur(32px);
+      -webkit-backdrop-filter: saturate(200%) blur(32px);
+      box-shadow: 0 4px 32px rgba(0,0,0,0.07), inset 0 1px 0 rgba(255,255,255,0.80);
     }
     .section-nav a {
       color: #4a4a4f;
@@ -678,22 +703,73 @@
 <!-- HERO -->
 <div class="hero">
   <div class="hero-routes" aria-hidden="true">
-    <svg viewBox="0 0 1600 520" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="routeGlow" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stop-color="rgba(255,255,255,0)"/>
-          <stop offset="45%" stop-color="rgba(255,214,130,0.95)"/>
-          <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-        </linearGradient>
-      </defs>
-      <path class="route-line" d="M220 332 C460 216, 720 214, 1010 258 S1380 288, 1500 220" stroke="url(#routeGlow)" stroke-width="2.3" fill="none"/>
-      <path class="route-line delay-1" d="M160 370 C430 260, 730 238, 1025 285 S1360 305, 1510 246" stroke="url(#routeGlow)" stroke-width="1.7" fill="none"/>
-      <path class="route-line delay-2" d="M240 286 C515 176, 790 182, 1110 236 S1420 252, 1545 180" stroke="url(#routeGlow)" stroke-width="1.45" fill="none"/>
-      <path class="route-line delay-3" d="M300 408 C590 304, 860 292, 1160 318 S1442 324, 1565 280" stroke="url(#routeGlow)" stroke-width="1.2" fill="none"/>
-      <circle class="node-glow" cx="220" cy="332" r="5" fill="rgba(255,225,165,0.95)"/>
-      <circle class="node-glow delay-1" cx="1010" cy="258" r="5.5" fill="rgba(255,225,165,0.95)"/>
-      <circle class="node-glow delay-2" cx="1500" cy="220" r="4" fill="rgba(255,225,165,0.95)"/>
-      <circle class="node-glow delay-3" cx="300" cy="408" r="4.2" fill="rgba(255,225,165,0.95)"/>
+    <!--
+      Coordinate map (viewBox 1600 × 900, satellite image centered Pacific):
+        Shanghai  (SHA)  1260, 295
+        Hanoi     (HAN)  1175, 360
+        Bangalore (BLR)  exits left ~0,440 / re-enters right ~1600,440
+        Anchorage (ANC)   245, 195
+        CVG                755, 345
+        MEM                720, 368
+        SDF                745, 352
+    -->
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- ── SHA → ANC → CVG ── -->
+      <path id="sha-cvg" class="arc arc-sha s0"
+        d="M1260,295 C1320,200 1400,130 1500,80 C1560,50 1600,40 1600,40
+           M0,40 C80,40 160,80 245,195
+           C310,280 480,310 610,330 C680,338 720,340 755,345"/>
+
+      <!-- ── SHA → ANC → SDF ── -->
+      <path id="sha-sdf" class="arc arc-sha s2"
+        d="M1260,295 C1310,210 1390,140 1480,90 C1545,58 1600,44 1600,44
+           M0,44 C85,44 168,85 245,195
+           C315,278 488,308 615,328 C682,336 718,341 745,352"/>
+
+      <!-- ── HAN → ANC → MEM ── -->
+      <path id="han-mem" class="arc arc-han s1"
+        d="M1175,360 C1230,270 1340,175 1460,100 C1535,62 1600,48 1600,48
+           M0,48 C90,48 175,90 245,195
+           C318,275 492,312 600,336 C660,345 700,356 720,368"/>
+
+      <!-- ── HAN → ANC → CVG ── -->
+      <path id="han-cvg" class="arc arc-han s3"
+        d="M1175,360 C1225,275 1330,180 1455,105 C1530,65 1600,52 1600,52
+           M0,52 C88,52 170,92 245,195
+           C312,282 484,316 610,334 C675,340 722,342 755,345"/>
+
+      <!-- ── BLR exits left edge heading west ── (both BLR arcs share this departure) -->
+      <path class="arc arc-blr s4"
+        d="M1600,438 C1490,418 1380,390 1260,372 C1120,352 960,358 820,382
+           C700,402 580,418 450,426 C330,432 200,424 100,406 C50,396 20,388 0,382"/>
+
+      <!-- ── BLR re-enters right → MEM ── -->
+      <path class="arc arc-blr s4"
+        d="M0,382 C-10,382 0,382 0,382"/>
+      <!-- continuation from left edge into MEM -->
+      <path class="arc arc-blr s4"
+        d="M0,380 C80,360 200,330 350,316 C490,304 610,318 670,336 C698,346 712,358 720,368"/>
+
+      <!-- ── BLR re-enters → CVG ── -->
+      <path class="arc arc-blr s5"
+        d="M1600,444 C1490,424 1370,396 1240,378 C1100,358 940,364 800,388
+           C680,408 550,424 410,430 C280,434 160,424 60,404 C28,397 10,392 0,389"/>
+      <path class="arc arc-blr s5"
+        d="M0,389 C90,366 220,336 380,322 C510,310 630,322 690,340 C722,350 740,347 755,345"/>
+
+      <!-- ── GATEWAY NODES ── -->
+      <!-- ANC -->
+      <circle class="gnode p0" cx="245" cy="195" r="4"/>
+      <!-- CVG -->
+      <circle class="gnode p1" cx="755" cy="345" r="4"/>
+      <!-- MEM -->
+      <circle class="gnode p2" cx="720" cy="368" r="4"/>
+      <!-- SDF -->
+      <circle class="gnode p3" cx="745" cy="352" r="3.5"/>
+      <!-- SHA origin -->
+      <circle class="gnode p4" cx="1260" cy="295" r="3.5"/>
+
     </svg>
   </div>
   <div class="hero-badge">Onboarding &amp; Training</div>
