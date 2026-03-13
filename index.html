@@ -645,11 +645,11 @@
   <div class="hero-inner">
     <div class="eyebrow"> AMR Logistics Operations</div>
     <h1>Inbound Parcel Network</h1>
-    <p>Monitoring carrier execution across <strong>40 OEM partners</strong>, <strong>9 gateways</strong>, and <strong>4 countries</strong> — from carrier fundamentals and daily reviews to weekly cadence, TMS, and NPI execution.</p>
+    <p>Monitoring carrier execution across <strong>40+ OEM partners</strong>, <strong>8 gateways</strong>, and <strong>4 countries</strong> — from carrier fundamentals and daily reviews to weekly cadence, TMS, and NPI execution.</p>
     <div class="hero-meta">
       <span class="hero-pill">4 Countries</span>
-      <span class="hero-pill">9 Gateways</span>
-      <span class="hero-pill">40 OEMs</span>
+      <span class="hero-pill">8 Gateways</span>
+      <span class="hero-pill">40+ OEMs</span>
       <span class="hero-pill">3 Carriers</span>
     </div>
   </div>
@@ -684,11 +684,11 @@
         <div class="label">Countries</div>
       </div>
       <div class="stat-card">
-        <div class="num">9</div>
+        <div class="num">8</div>
         <div class="label">Gateways</div>
       </div>
       <div class="stat-card">
-        <div class="num">40</div>
+        <div class="num">40+</div>
         <div class="label">OEMs</div>
       </div>
       <div class="stat-card">
@@ -721,7 +721,7 @@
 
         <div class="pill-card">
           <div class="pill-title">Geographic Overview</div>
-          <div class="pill-desc">4 countries (CN, VN, IN, TH), 9 gateways, 40 OEMs. Understand origin structures and carrier routing by region.</div>
+          <div class="pill-desc">4 countries (CN, VN, IN, TH), 8 gateways, 40+ OEMs. Understand origin structures and carrier routing by region.</div>
           <div class="pill-tags"><span class="pill-tag tag-blue">Foundation</span></div>
           <a class="pill-link" href="https://apple.box.com/s/s5n276ab2xl50q2c1s2rsdkmx00ulddh" target="_blank">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -825,7 +825,7 @@
           </div>
         </div>
 
-        <div id="fp-map" style="position:absolute; top:44px; left:0; right:0; bottom:40px;"></div>
+        <div id="fp-map" style="position:absolute; top:44px; left:0; right:0; bottom:0;"></div>
 
         <!-- Gateway detail panel -->
         <div id="fp-gw-panel" style="position:absolute; top:54px; right:12px; width:220px; background:rgba(7,17,31,0.95); border:1px solid rgba(255,255,255,0.1); border-radius:6px; padding:14px 16px; display:none; z-index:20; backdrop-filter:blur(16px);">
@@ -835,29 +835,6 @@
           <ul id="fp-gw-routes" style="list-style:none;margin-top:10px;"></ul>
         </div>
 
-        <!-- Stats bar -->
-        <div style="position:absolute; bottom:0; left:0; right:0; display:flex; border-top:1px solid rgba(255,255,255,0.08); background:rgba(7,17,31,0.9);">
-          <div style="flex:1;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:baseline;gap:6px;">
-            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">8</span>
-            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Gateways</span>
-          </div>
-          <div style="flex:1;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:baseline;gap:6px;">
-            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">11</span>
-            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Routes</span>
-          </div>
-          <div style="flex:1;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:baseline;gap:6px;">
-            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">3</span>
-            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Carrier Hubs</span>
-          </div>
-          <div style="flex:1;padding:8px 16px;border-right:1px solid rgba(255,255,255,0.08);display:flex;align-items:baseline;gap:6px;">
-            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">4</span>
-            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Countries</span>
-          </div>
-          <div style="flex:1;padding:8px 16px;display:flex;align-items:baseline;gap:6px;">
-            <span style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:#56d0ff;">ANC</span>
-            <span style="font-size:9px;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;">Eastbound Stop</span>
-          </div>
-        </div>
       </div>
     </div>
 
@@ -870,21 +847,21 @@
 
       const AP = {
         BKK:   { lat:13.69,   lon:100.7501, label:'BKK'   },
+        BLR:   { lat:13.1986, lon:77.7066,  label:'BLR'   },
         CGO:   { lat:34.5197, lon:113.8408, label:'CGO'   },
         CTU:   { lat:30.5785, lon:103.9471, label:'CTU'   },
-        HKG:   { lat:22.308,  lon:113.9185, label:'HKG'   },
         HAN:   { lat:21.2212, lon:105.8072, label:'HAN'   },
-        MAA:   { lat:12.9941, lon:80.1709,  label:'MAA'   },
+        HKG:   { lat:22.308,  lon:113.9185, label:'HKG'   },
         PVG:   { lat:31.1443, lon:121.8083, label:'PVG'   },
-        BATAM: { lat:1.121,   lon:104.119,  label:'BATAM' },
+        SIN:   { lat:1.3644,  lon:103.9915, label:'SIN'   },
         DEL:   { lat:28.5562, lon:77.1,     label:'DEL'   },
         CGN:   { lat:50.8659, lon:7.1427,   label:'CGN'   },
         ICN:   { lat:37.4602, lon:126.4407, label:'ICN'   },
         NRT:   { lat:35.7767, lon:140.3189, label:'NRT'   },
         KIX:   { lat:34.4347, lon:135.2441, label:'KIX'   },
         SZX:   { lat:22.6393, lon:113.8107, label:'SZX'   },
-        SIN:   { lat:1.3644,  lon:103.9915, label:'SIN'   },
-        BLR:   { lat:13.1986, lon:77.7066,  label:'BLR'   },
+        MAA:   { lat:12.9941, lon:80.1709,  label:'MAA'   },
+        BATAM: { lat:1.121,   lon:104.119,  label:'BATAM' },
         ANC_E: { lat:61.1743, lon:210.0015, label:'ANC'   },
         SDF:   { lat:38.1744, lon:-85.736,  label:'SDF'   },
         MEM:   { lat:35.0425, lon:-89.9767, label:'MEM'   },
@@ -892,33 +869,33 @@
       };
 
       const FP_ROUTES = [
-        { id:'BKK-SDF',     gateway:'BKK',   hub:'SDF', dir:'west', stops:['BKK','DEL','CGN','SDF'],             ground:[['BKK','DEL']], label:'BKK → DEL → CGN → SDF' },
-        { id:'CGO-SDF',     gateway:'CGO',   hub:'SDF', dir:'east', stops:['CGO','ICN','ANC_E','SDF'],           ground:[],             label:'CGO → ICN → ANC → SDF' },
-        { id:'CTU-SDF',     gateway:'CTU',   hub:'SDF', dir:'east', stops:['CTU','CGO','ICN','ANC_E','SDF'],     ground:[['CTU','CGO']], label:'CTU → CGO (truck) → ICN → ANC → SDF' },
-        { id:'HKG-SDF',     gateway:'HKG',   hub:'SDF', dir:'east', stops:['HKG','ANC_E','SDF'],                ground:[],             label:'HKG → ANC → SDF' },
-        { id:'HAN-ICN-SDF', gateway:'HAN',   hub:'SDF', dir:'east', stops:['HAN','ICN','ANC_E','SDF'],           ground:[],             label:'HAN → ICN → ANC → SDF' },
-        { id:'HAN-SZX-SDF', gateway:'HAN',   hub:'SDF', dir:'east', stops:['HAN','SZX','ANC_E','SDF'],           ground:[],             label:'HAN → SZX → ANC → SDF' },
-        { id:'MAA-MEM',     gateway:'MAA',   hub:'MEM', dir:'west', stops:['MAA','BLR','CGN','MEM'],             ground:[['MAA','BLR']], label:'MAA → BLR (truck) → CGN → MEM' },
-        { id:'PVG-ICN-SDF', gateway:'PVG',   hub:'SDF', dir:'east', stops:['PVG','ICN','ANC_E','SDF'],           ground:[],             label:'PVG → ICN → ANC → SDF' },
-        { id:'PVG-NRT-SDF', gateway:'PVG',   hub:'SDF', dir:'east', stops:['PVG','NRT','ANC_E','SDF'],           ground:[],             label:'PVG → NRT → ANC → SDF' },
-        { id:'PVG-KIX-SDF', gateway:'PVG',   hub:'SDF', dir:'east', stops:['PVG','KIX','ANC_E','SDF'],           ground:[],             label:'PVG → KIX → ANC → SDF' },
-        { id:'BATAM-SDF',   gateway:'BATAM', hub:'SDF', dir:'east', stops:['BATAM','SIN','HKG','ICN','ANC_E','SDF'], ground:[['BATAM','SIN']], label:'BATAM → SIN (ferry) → HKG → ICN → ANC → SDF' },
+        { id:'BKK-SDF',     gateway:'BKK', hub:'SDF', dir:'west', stops:['BKK','DEL','CGN','SDF'],                  ground:[['BKK','DEL']], label:'BKK → DEL → CGN → SDF' },
+        { id:'BLR-MEM',     gateway:'BLR', hub:'MEM', dir:'west', stops:['MAA','BLR','CGN','MEM'],                  ground:[['MAA','BLR']], label:'MAA → BLR → CGN → MEM' },
+        { id:'CGO-SDF',     gateway:'CGO', hub:'SDF', dir:'east', stops:['CGO','ICN','ANC_E','SDF'],                ground:[],             label:'CGO → ICN → ANC → SDF' },
+        { id:'CTU-SDF',     gateway:'CTU', hub:'SDF', dir:'east', stops:['CTU','CGO','ICN','ANC_E','SDF'],          ground:[['CTU','CGO']], label:'CTU → CGO (truck) → ICN → ANC → SDF' },
+        { id:'HAN-ICN-SDF', gateway:'HAN', hub:'SDF', dir:'east', stops:['HAN','ICN','ANC_E','SDF'],                ground:[],             label:'HAN → ICN → ANC → SDF' },
+        { id:'HAN-SZX-SDF', gateway:'HAN', hub:'SDF', dir:'east', stops:['HAN','SZX','ANC_E','SDF'],                ground:[],             label:'HAN → SZX → ANC → SDF' },
+        { id:'HKG-SDF',     gateway:'HKG', hub:'SDF', dir:'east', stops:['HKG','ANC_E','SDF'],                     ground:[],             label:'HKG → ANC → SDF' },
+        { id:'PVG-ICN-SDF', gateway:'PVG', hub:'SDF', dir:'east', stops:['PVG','ICN','ANC_E','SDF'],                ground:[],             label:'PVG → ICN → ANC → SDF' },
+        { id:'PVG-NRT-SDF', gateway:'PVG', hub:'SDF', dir:'east', stops:['PVG','NRT','ANC_E','SDF'],                ground:[],             label:'PVG → NRT → ANC → SDF' },
+        { id:'PVG-KIX-SDF', gateway:'PVG', hub:'SDF', dir:'east', stops:['PVG','KIX','ANC_E','SDF'],                ground:[],             label:'PVG → KIX → ANC → SDF' },
+        { id:'SIN-SDF',     gateway:'SIN', hub:'SDF', dir:'east', stops:['BATAM','SIN','HKG','ICN','ANC_E','SDF'], ground:[['BATAM','SIN']], label:'BATAM → SIN (ferry) → HKG → ICN → ANC → SDF' },
       ];
 
       const FP_GW_INFO = {
-        BKK:   { name:'BKK — Bangkok, Thailand',  dir:'west' },
-        CGO:   { name:'CGO — Zhengzhou, China',   dir:'east' },
-        CTU:   { name:'CTU — Chengdu, China',     dir:'east' },
-        HKG:   { name:'HKG — Hong Kong',          dir:'east' },
-        HAN:   { name:'HAN — Hanoi, Vietnam',     dir:'east' },
-        MAA:   { name:'MAA — Chennai, India',     dir:'west' },
-        PVG:   { name:'PVG — Shanghai, China',    dir:'east' },
-        BATAM: { name:'BATAM — Batam, Indonesia', dir:'east' },
+        BKK: { name:'BKK — Bangkok, Thailand',  dir:'west' },
+        BLR: { name:'BLR — Bangalore, India',   dir:'west' },
+        CGO: { name:'CGO — Zhengzhou, China',   dir:'east' },
+        CTU: { name:'CTU — Chengdu, China',     dir:'east' },
+        HAN: { name:'HAN — Hanoi, Vietnam',     dir:'east' },
+        HKG: { name:'HKG — Hong Kong',          dir:'east' },
+        PVG: { name:'PVG — Shanghai, China',    dir:'east' },
+        SIN: { name:'SIN — Singapore',          dir:'east' },
       };
 
       function fpBuildTraces() {
         const traces = [];
-        const stopKeys = new Set(['DEL','CGN','ICN','NRT','KIX','SZX','SIN','BLR','ANC_E']);
+        const stopKeys = new Set(['DEL','CGN','ICN','NRT','KIX','SZX','MAA','BATAM','ANC_E']);
 
         FP_ROUTES.forEach(route => {
           const groundSet = new Set(route.ground.map(([a,b]) => a+'-'+b));
